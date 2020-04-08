@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Switch, Route } from 'react-router-dom'
 import Recipe from './components/Recipe'
 import Axios from 'axios'
 import './App.css';
+
+import NavBar from './screens/NavBar'
 
 const App = () => {
   const APP_ID = ''
@@ -30,7 +33,10 @@ const App = () => {
   }
 
   return (
-    <div className='App'>
+    <>
+      <NavBar />
+
+      <Switch>
       <form onSubmit={getSearch} className='search-form'>
         <input className='search-bar' type='text' value={search} onChange={handleSearch} />
         <button className='search-btn' type='submit'>Search</button>
@@ -40,7 +46,8 @@ const App = () => {
           <Recipe recipe={recipe.recipe} key={recipe.recipe.uri} />
         ))}
       </div>
-    </div>
+      </Switch>
+    </>
   )
 }
 
