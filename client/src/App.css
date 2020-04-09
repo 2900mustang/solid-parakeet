@@ -1,3 +1,7 @@
+.landingContainer a {
+  text-decoration: none;
+}
+
 .search-form {
   min-height: 10vh;
   display: flex;

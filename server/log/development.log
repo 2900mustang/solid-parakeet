@@ -1780,3 +1780,145 @@ Processing by UsersController#index as HTML
 Completed 200 OK in 6ms (Views: 4.7ms | ActiveRecord: 0.5ms | Allocations: 1105)
 
 
+Started GET "/users" for ::1 at 2020-04-09 01:36:36 -0400
+  [1m[35m (18.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (3.2ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:9:in `index'
+Completed 200 OK in 59ms (Views: 16.7ms | ActiveRecord: 27.3ms | Allocations: 7451)
+
+
+Started GET "/users/1/blogs" for ::1 at 2020-04-09 01:36:44 -0400
+Processing by BlogsController#index as HTML
+  Parameters: {"user_id"=>"1"}
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.0ms | Allocations: 512)
+
+
+  
+NoMethodError (undefined method `blogs' for nil:NilClass):
+  
+app/controllers/blogs_controller.rb:13:in `index'
+Started GET "/all_blogs" for ::1 at 2020-04-09 01:36:54 -0400
+Processing by BlogsController#all_blogs as HTML
+  [1m[36mBlog Load (2.3ms)[0m  [1m[34mSELECT "blogs".* FROM "blogs"[0m
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mUser Load (5.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mComment Load (3.6ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = $1[0m  [["blog_id", 1]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = $1[0m  [["blog_id", 2]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mCACHE User Load (0.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."blog_id" = $1[0m  [["blog_id", 3]]
+  ↳ app/controllers/blogs_controller.rb:9:in `all_blogs'
+Completed 200 OK in 167ms (Views: 117.3ms | ActiveRecord: 27.5ms | Allocations: 21235)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 01:38:47 -0400
+Processing by AuthenticationController#verify as HTML
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 30ms (Views: 2.7ms | ActiveRecord: 0.0ms | Allocations: 218)
+
+
+Started POST "/auth/login" for ::1 at 2020-04-09 01:39:24 -0400
+Processing by AuthenticationController#login as HTML
+  Parameters: {"username"=>"duncan", "password"=>"[FILTERED]", "authentication"=>{"username"=>"duncan", "password"=>"[FILTERED]"}}
+Completed 400 Bad Request in 9ms (ActiveRecord: 0.0ms | Allocations: 146)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: auth):
+  
+app/controllers/authentication_controller.rb:22:in `login_params'
+app/controllers/authentication_controller.rb:6:in `login'
+Started GET "/auth/verify" for ::1 at 2020-04-09 01:42:59 -0400
+Processing by AuthenticationController#verify as HTML
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 15ms (Views: 2.8ms | ActiveRecord: 0.0ms | Allocations: 191)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 01:44:26 -0400
+Processing by AuthenticationController#verify as HTML
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 8ms (Views: 1.9ms | ActiveRecord: 0.0ms | Allocations: 191)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 01:45:01 -0400
+Processing by AuthenticationController#verify as HTML
+Filter chain halted as :authorize_request rendered or redirected
+Completed 401 Unauthorized in 8ms (Views: 2.9ms | ActiveRecord: 0.0ms | Allocations: 191)
+
+
+Started POST "/auth/login" for ::1 at 2020-04-09 01:46:51 -0400
+Processing by AuthenticationController#login as HTML
+  Parameters: {"username"=>"duncan", "password"=>"[FILTERED]", "authentication"=>{"username"=>"duncan", "password"=>"[FILTERED]"}}
+Completed 400 Bad Request in 6ms (ActiveRecord: 0.0ms | Allocations: 125)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: auth):
+  
+app/controllers/authentication_controller.rb:22:in `login_params'
+app/controllers/authentication_controller.rb:6:in `login'
+Started POST "/auth/login" for ::1 at 2020-04-09 01:57:44 -0400
+Processing by AuthenticationController#login as HTML
+  Parameters: {"username"=>"duncan", "email"=>"", "password"=>"[FILTERED]", "newPassword"=>"[FILTERED]", "authentication"=>{"username"=>"duncan", "email"=>"", "password"=>"[FILTERED]", "newPassword"=>"[FILTERED]"}}
+Completed 400 Bad Request in 8ms (ActiveRecord: 0.0ms | Allocations: 131)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: auth):
+  
+app/controllers/authentication_controller.rb:22:in `login_params'
+app/controllers/authentication_controller.rb:6:in `login'
+Started POST "/auth/login" for ::1 at 2020-04-09 02:02:10 -0400
+Processing by AuthenticationController#login as HTML
+  Parameters: {"username"=>"duncan", "email"=>"", "password"=>"[FILTERED]", "newPassword"=>"[FILTERED]", "authentication"=>{"username"=>"duncan", "email"=>"", "password"=>"[FILTERED]", "newPassword"=>"[FILTERED]"}}
+[31mUnpermitted parameters: :email, :newPassword, :authentication[0m
+  [1m[36mUser Load (13.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "duncan"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `login'
+[31mUnpermitted parameters: :email, :newPassword, :authentication[0m
+Completed 200 OK in 568ms (Views: 1.0ms | ActiveRecord: 53.5ms | Allocations: 6949)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 02:03:13 -0400
+Processing by AuthenticationController#verify as HTML
+  [1m[36mUser Load (3.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:19:in `authorize_request'
+Completed 200 OK in 74ms (Views: 17.7ms | ActiveRecord: 3.5ms | Allocations: 976)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 02:03:20 -0400
+Processing by AuthenticationController#verify as HTML
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:19:in `authorize_request'
+Completed 200 OK in 42ms (Views: 6.6ms | ActiveRecord: 3.3ms | Allocations: 848)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 02:03:32 -0400
+Processing by AuthenticationController#verify as HTML
+  [1m[36mUser Load (7.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:19:in `authorize_request'
+Completed 200 OK in 56ms (Views: 10.4ms | ActiveRecord: 7.4ms | Allocations: 860)
+
+
+Started POST "/auth/login" for ::1 at 2020-04-09 02:04:20 -0400
+Processing by AuthenticationController#login as HTML
+  Parameters: {"username"=>"duncan", "password"=>"[FILTERED]", "authentication"=>{"username"=>"duncan", "password"=>"[FILTERED]"}}
+[31mUnpermitted parameter: :authentication[0m
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "duncan"], ["LIMIT", 1]]
+  ↳ app/controllers/authentication_controller.rb:6:in `login'
+[31mUnpermitted parameter: :authentication[0m
+Completed 200 OK in 454ms (Views: 2.6ms | ActiveRecord: 1.1ms | Allocations: 1050)
+
+
+Started GET "/auth/verify" for ::1 at 2020-04-09 02:06:33 -0400
+Processing by AuthenticationController#verify as HTML
+  [1m[36mUser Load (2.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:19:in `authorize_request'
+Completed 200 OK in 35ms (Views: 7.7ms | ActiveRecord: 2.1ms | Allocations: 848)
+
+

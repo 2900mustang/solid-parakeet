@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NavBar(props) {
-  const { searchText, handleChange, handleClick, handleKeyPress } = props
+  const { currentUser, searchText, handleChange, handleClick, handleKeyPress } = props
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -135,7 +135,7 @@ export default function NavBar(props) {
               <CloudUploadIcon />
             </Badge>
           </IconButton>
-          <p>Create a Recipe</p>
+          <p>Create a Blog</p>
         </MenuItem>
       </Link>
       <Link to="/UserStoreFrontEdit">
@@ -144,7 +144,7 @@ export default function NavBar(props) {
             <AccountCircle>
             </AccountCircle>
           </IconButton>
-          <p>My Recipes</p>
+          <p>My Blogs</p>
         </MenuItem>
       </Link>
     </Menu>
@@ -155,7 +155,7 @@ export default function NavBar(props) {
       <AppBar position="static">
         <Toolbar>
           <IconButton >
-            <Link to='/'>
+            <Link to='/home'>
               <EmojiFoodBeverageIcon />
             </Link>
           </IconButton>
@@ -164,6 +164,8 @@ export default function NavBar(props) {
             Solid Parakeet
           </Typography>
 
+          { currentUser && (
+            <>
           <div className={classes.search}>
             <InputBase
               onChange={handleChange}
@@ -194,7 +196,7 @@ export default function NavBar(props) {
               < AccountCircle />
               </IconButton>
             </Link>
-            <Link onClick={props.handleLogOut} to='/' className='logoutLink'>
+            <Link onClick={props.handleLogOut} to='/home' className='logoutLink'>
               <IconButton>
                 <span>Log Out</span>
               </IconButton>
@@ -211,9 +213,10 @@ export default function NavBar(props) {
               <MenuIcon />
             </IconButton>
           </div>
+          </>)}
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+      {currentUser && renderMobileMenu}
       {renderMenu}
     </div>
   );
