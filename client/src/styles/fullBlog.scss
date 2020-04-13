@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text:400,400i|Work+Sans:300,500');
+
+$bg: #61121225;
+$black: #181a1c;
+$gray: #a29a97;
+$red: #f46767;
+
+.blog-container {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: $black;
+  padding: 1rem;
+  background: $bg;
+  width: 81vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  min-height: 100vh;
+}
+
+.blog-bio {
+  font-size: .9rem;
+  letter-spacing: .125rem;
+  color: $gray;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.img-container > img {
+  width: 100%;
+  height: 27rem;
+  vertical-align: middle;
+  margin: 1.5rem 0 3rem 0;
+  object-fit: contain;
+  border-radius: .25rem;
+}
+
+h1 {
+  font-family: 'Crimson Text', serif;
+  margin: 2rem 0;
+  font-size: 3.5rem;
+  line-height: 1.25;
+  text-align: center;
+  margin: 2rem 0 0.5rem 0;
+}
+
+p {
+  margin: 0 0 1.5rem 0;
+}
+
+.blog-content {
+  max-width: 50rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 40rem) {
+  .blog-container {
+    width: 100vw;
+  }
+
+  h1 {
+    line-height: 1.1;
+  }
+  
+  img {
+    height: auto;
+  }
+}

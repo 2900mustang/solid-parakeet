@@ -31,24 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ authObj, handleChange, handleSubmit, changingPassword, toggleNewPass, history }) => {
+const Login = ({ authObj, handleChange, handleSubmit, changingPassword, toggleNewPass }) => {
   const { username, password, newPassword } = authObj
   const classes = useStyles();
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   if (!changingPassword) {
-  //     handleSubmit()
-  //       .then(() => history.push('/'))
-  //       .catch(error => console.error(error))
-  //   } else {
-  //     handleUpdateAccount()
-  //       .then(() => {
-  //         setForgot(false)
-  //       })
-  //       .catch(error => console.error(error))
-  //   }
-  // }
 
   const renderLogin = () => {
 

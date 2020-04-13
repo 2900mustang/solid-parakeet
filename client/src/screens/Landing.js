@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   heroButtons: {
     marginTop: theme.spacing(4),
+  },
+  logAnchors: {
+    textDecoration: 'none',
   }
 }))
 
@@ -35,7 +38,7 @@ export default function Landing() {
             <div className={classes.heroButtons}>
               <Grid container className='landingContainer' spacing={1} justify="center">
                 <Grid item>
-                  <Link to="/signup">
+                  <Link to="/signup" className={classes.logAnchors}>
                     <Button variant="contained" color="primary">
                       Sign Up
                     </Button>
@@ -43,7 +46,7 @@ export default function Landing() {
                 </Grid>
 
                 <Grid item>
-                  <Link to="/login">
+                  <Link to="/login" className={classes.logAnchors}>
                     <Button variant="contained" color="default">
                       Login
                     </Button>

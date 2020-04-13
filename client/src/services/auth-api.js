@@ -11,7 +11,7 @@ const api = axios.create({
 })
 
 const loginUser = async (obj) => {
-  const res = await api.post('/auth/login', obj)
+  const res = await api.post('/auth/login', { auth: obj })
   localStorage.setItem('authToken', res.data.token)
   api.defaults.headers.common.authorization = `Bearer ${res.data.token}`
   return res.data.user
@@ -34,8 +34,14 @@ const verifyUser = async () => {
   return false
 }
 
+const updatePassword = async (obj, id) => {
+  const res = await api.put(`/users/${id}`, { user: obj })
+  return res.data
+}
+
 export {
   loginUser,
   registerUser,
-  verifyUser
+  verifyUser,
+  updatePassword
 }

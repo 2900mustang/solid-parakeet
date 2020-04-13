@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :update, :destroy]
-  # before_action :authorize_request, except: [:all_blogs, :index, :show]
+  before_action :authorize_request, except: [:all_blogs, :index, :show, :index_by_user]
 
   # GET /blogs
   def all_blogs
@@ -13,6 +13,13 @@ class BlogsController < ApplicationController
     @blogs = @current_user.blogs
 
     render json: @blogs, include: [:user, :comments], status: :ok
+  end
+
+  def index_by_user
+    @user = User.find(params[:user_id])
+    @blogs = @user.blogs
+
+    render json: @blogs, include: :user, status: :ok
   end
 
   # GET /blogs/1

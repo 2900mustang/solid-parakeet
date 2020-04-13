@@ -1,31 +1,11 @@
-.landingContainer a {
-  text-decoration: none;
-}
-
-.search-form {
-  min-height: 10vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-bar {
-  width: 50%;
-  border: none;
-  padding: 20px;
-}
-.search-btn {
-  background: lightcyan;
-  border: none;
-  padding: 10px 20px;
-}
-
-.recipes {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
 .logoutLink {
   text-decoration: none;
+}
+
+.logoutLink span {
+  color: #fff;
+}
+
+.logoutLink span:hover {
+  color: rgba(255, 250, 250, 0.331);
 }

@@ -35,12 +35,6 @@ const SignupForm = ({ authObj, handleChange, handleSubmit, history }) => {
   const { username, email, password } = authObj
 
   const classes = useStyles();
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   handleSubmit()
-  //     .then(() => history.push('/'))
-  //     .catch(error => console.error(error))
-  // }
 
   const renderSignUpForm = () => {
     return (

@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import EmojiFoodBeverageIcon from '@material-ui/icons/EmojiFoodBeverage';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -75,15 +74,27 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  noteAddButton: {
+    color: 'snow',
+    '&:hover': {
+      color: '#2196f3'
+    }
   }
 }));
 
 export default function NavBar(props) {
-  const { currentUser, searchText, handleChange, handleClick, handleKeyPress } = props
+  const { currentUser, searchText, handleChange, handleClick, handleKeyPress, logout, backToMain } = props
 
+  const [userId, setUserId] = useState(null)
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+  useEffect(() => {
+    currentUser && setUserId(currentUser.id)
+    return
+  }, [currentUser])
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -128,23 +139,21 @@ export default function NavBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/GuestCheckout">
+      <Link to="/createBlog">
         <MenuItem>
-          <IconButton aria-label="new items added to cart" color="inherit">
-            <Badge badgeContent={props.shoppingCartItemsCount} color="secondary">
-              <CloudUploadIcon />
-            </Badge>
+          <IconButton aria-label="" color="inherit">
+            <NoteAddIcon className={classes.noteAddButton} />
           </IconButton>
           <p>Create a Blog</p>
         </MenuItem>
       </Link>
-      <Link to="/UserStoreFrontEdit">
+      <Link to={`/myblogs/${userId}`}>
         <MenuItem >
           <IconButton>
             <AccountCircle>
             </AccountCircle>
           </IconButton>
-          <p>My Blogs</p>
+          <p>My Blogs</p>   
         </MenuItem>
       </Link>
     </Menu>
@@ -154,7 +163,7 @@ export default function NavBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton >
+          <IconButton onClick={backToMain}>
             <Link to='/home'>
               <EmojiFoodBeverageIcon />
             </Link>
@@ -184,19 +193,17 @@ export default function NavBar(props) {
           </IconButton>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link to="/GuestCheckout">
-              <IconButton aria-label="new items added to cart" color="inherit">
-                <Badge badgeContent={props.shoppingCartItemsCount} color="secondary">
-                  <CloudUploadIcon />
-                </Badge>
+            <Link to="/createBlog">
+              <IconButton aria-label="" color="inherit">
+                <NoteAddIcon className={classes.noteAddButton} />
               </IconButton>
             </Link>
-            <Link to="/UserStoreFrontEdit">
+            <Link to={`/myblogs/${userId}`}>
               <IconButton className='iconBtn'>
               < AccountCircle />
               </IconButton>
             </Link>
-            <Link onClick={props.handleLogOut} to='/home' className='logoutLink'>
+            <Link onClick={logout} to='/home' className='logoutLink'>
               <IconButton>
                 <span>Log Out</span>
               </IconButton>
