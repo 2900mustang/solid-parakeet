@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Blogs from './Blogs'
 
-const BlogsByUser = ({ handleLoad, user, blogs, match: { params: { userId } } }) => {
+const BlogsByUser = ({ handleLoad, user, blogs, deleteBlog, currentUser, match: { params: { userId } } }) => {
   useEffect(() => {
     handleLoad(userId)
     return
@@ -9,7 +9,7 @@ const BlogsByUser = ({ handleLoad, user, blogs, match: { params: { userId } } })
 
   const displayBlogs = () => {
     return (
-      <Blogs blogs={blogs} username={user && user.username} />
+      <Blogs blogs={blogs} username={user && user.username} deleteBlog={deleteBlog} currentUser={currentUser} />
     )
   }
 

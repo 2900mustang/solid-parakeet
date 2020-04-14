@@ -9,7 +9,7 @@ $shadow: rgba(0, 0, 0, 0.2);
   transition: $args;
 }
 
-.card-link {
+.card-container {
   position: relative;
   margin-bottom: .35rem;
   display: block;
@@ -35,6 +35,9 @@ $shadow: rgba(0, 0, 0, 0.2);
 
 .article-details {
   padding: 1.5rem;
+  a {
+    text-decoration: none;
+  }
 }
 
 .blog-title {
@@ -87,6 +90,18 @@ $shadow: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0.1875rem 1.5rem $shadow;
   border-radius: 0.375rem;
   overflow: hidden;
+}
+
+.title-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-button, .delete-button {
+  padding: 0 .5rem;
+  &:hover {
+    color: rgba(29, 110, 190, 0.788);
+  }
 }
 
 @media (max-width: 42rem) {

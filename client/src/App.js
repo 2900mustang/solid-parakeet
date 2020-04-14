@@ -108,6 +108,24 @@ const App = (props) => {
     }
   }
 
+  const handleBlogDelete = async (userId, blogId) => {
+    try {
+      const deletedBlog = await destroyBlog(userId, blogId)
+      const updatedList = allBlogs.filter(blog => blog.id.toString() !== blogId)
+      setAllBlogs(updatedList)
+      if (someonesBlogs.length) {
+        const updatedList = someonesBlogs.filter(blog => blog.id.toString() !== blogId)
+        setSomeonesBlogs(updatedList)
+      }
+      if (filteredBlogs.length) {
+        const updatedList = filteredBlogs.filter(blog => blog.id.toString() !== blogId)
+        setFilteredBlogs(updatedList)
+      }
+    } catch (e) {
+      console.error(e.message)
+    }
+  }
+
   const handleSearchChange = ({ target: { value } }) => {
     setSearch(value)
     if (!value) {
@@ -147,7 +165,7 @@ const App = (props) => {
 
       <Switch>
         <Route exact path="/home" render={() => (
-          currentUser ? <Blogs blogs={searching ? filteredBlogs : allBlogs} /> : <Landing /> 
+          currentUser ? <Blogs blogs={searching ? filteredBlogs : allBlogs} currentUser={currentUser.username} deleteBlog={handleBlogDelete} /> : <Landing /> 
         )} />
         <Route path='/signup' render={props => (
           <Signup {...props} authObj={authObj} handleChange={handleAuthObjChange} handleSubmit={handleSignup} />
@@ -160,10 +178,10 @@ const App = (props) => {
           <BlogForm {...props} blogForm={blogForm} handleChange={handleBlogFormChange} handleSubmit={handleBlogCreate} />
         )} />
         <Route path='/myblogs/:userId' render={props => (
-          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} user={currentUser} />
+          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser.username} user={currentUser} deleteBlog={handleBlogDelete} />
         )} />
         <Route exact path='/users/:userId/blogs' render={props => (
-          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} user={whoseBlogs} />
+          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser.username} user={whoseBlogs} deleteBlog={handleBlogDelete} />
         )} />
         <Route path='/users/:userId/blogs/:blogId' render={props => (
           <FullBlog {...props} />
