@@ -32,7 +32,7 @@ class BlogsController < ApplicationController
     @blog = @current_user.blogs.build(blog_params)
 
     if @blog.save
-      render json: @blog, status: :created, location: @blog
+      render json: @blog, include: [:user, :comments], status: :created, location: @blog
     else
       render json: @blog.errors, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class BlogsController < ApplicationController
   # PATCH/PUT /blogs/1
   def update
     if @blog.update(blog_params)
-      render json: @blog
+      render json: @blog, include: [:user, :comments], status: :ok
     else
       render json: @blog.errors, status: :unprocessable_entity
     end

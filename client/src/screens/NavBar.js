@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NavBar(props) {
-  const { currentUser, searchText, handleChange, handleClick, handleKeyPress, logout, backToMain } = props
+  const { currentUser, searchText, handleChange, handleClick, handleKeyPress, logout, backToMain, clearBlogForm } = props
 
   const [userId, setUserId] = useState(null)
   const classes = useStyles();
@@ -141,7 +141,7 @@ export default function NavBar(props) {
     >
       <Link to="/createBlog">
         <MenuItem>
-          <IconButton aria-label="" color="inherit">
+          <IconButton onClick={clearBlogForm} aria-label="" color="inherit">
             <NoteAddIcon className={classes.noteAddButton} />
           </IconButton>
           <p>Create a Blog</p>
@@ -164,7 +164,7 @@ export default function NavBar(props) {
       <AppBar position="static">
         <Toolbar>
           <IconButton onClick={backToMain}>
-            <Link to='/home'>
+            <Link to='/blogs'>
               <EmojiFoodBeverageIcon />
             </Link>
           </IconButton>
@@ -194,7 +194,7 @@ export default function NavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link to="/createBlog">
-              <IconButton aria-label="" color="inherit">
+              <IconButton onClick={clearBlogForm} aria-label="" color="inherit">
                 <NoteAddIcon className={classes.noteAddButton} />
               </IconButton>
             </Link>
@@ -203,7 +203,7 @@ export default function NavBar(props) {
               < AccountCircle />
               </IconButton>
             </Link>
-            <Link onClick={logout} to='/home' className='logoutLink'>
+            <Link onClick={logout} to='/' className='logoutLink'>
               <IconButton>
                 <span>Log Out</span>
               </IconButton>

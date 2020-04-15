@@ -120,7 +120,6 @@ textarea {
   &:hover {
     box-shadow: 0 0.125rem 0.5rem rgba($dark, 0.5);
     transform: translateY(-0.0625rem);
-    background-color: rgba(0, 0, 0, .05);
-    color: $white;
+    color: $theme;
   }
 }

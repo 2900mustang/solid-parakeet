@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import '../styles/blog.scss'
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ModalEdit from '../screens/ModalEdit'
 
-const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments, deleteBlog }) => {  
+const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments, deleteBlog, updateBlog }) => {  
   // const { commenter, body } = comments
+  const [toggle, setToggle] = useState(false)
   const sentence = text.split(' ').slice(0, 21).join(' ')
   const createdDate = date.substring(0, 10)
   const randomImgID = Math.floor(Math.random() * 1084) + 1
   
+  const toggleModal = () => setToggle(!toggle)
+
   return (
     <>
       <div className='card-container'>
@@ -23,7 +27,7 @@ const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments
               {
                 currentUser === author &&
                   <div className='buttons-box'>
-                    <EditIcon className='edit-button' />
+                    <EditIcon className='edit-button' onClick={toggleModal} />
                     <DeleteIcon className='delete-button' onClick={() => deleteBlog(`${userId}`, `${blogId}`)} />
                   </div> 
               }
@@ -38,6 +42,7 @@ const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments
             </div>
           </div>
         </article>      
+        <ModalEdit title={title} text={text} handleSubmit={updateBlog} toggle={toggle} toggleModal={toggleModal} userId={userId} blogId={blogId} />
       </div>
     </>
   )

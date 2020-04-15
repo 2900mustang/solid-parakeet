@@ -99,6 +99,7 @@ $shadow: rgba(0, 0, 0, 0.2);
 
 .edit-button, .delete-button {
   padding: 0 .5rem;
+  cursor: pointer;
   &:hover {
     color: rgba(29, 110, 190, 0.788);
   }
