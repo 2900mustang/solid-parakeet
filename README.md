@@ -2,31 +2,32 @@
 
 ## Description
 
-A web app designed to enable users to create and share recipes for a certain meal. Users can make copies of the same meal by following the recipe, and post images of those copies. 
+A web app designed to enable users to create and share blog posts. Users can comment on others' posts.
 
 ### MVP
 
 - user can sign up and login.
-- user can share meal recipes 
-- user can share meal pics following a recipe
+- user can create and share blogs 
+- user can edit and delete blogs
+- user can leave a comment on a blog post
 
 ### Post-MVP
 
 - user can invite other users onto the platform
-- user can disable other users from uploading pics 
+- user can disable other users from commenting
 
 #### Wireframe
 
-![image](https://i.imgur.com/h4F2Z6D.jpg)
+![image](https://i.imgur.com/0FpxQ53.jpg)
 
 #### Component Hierarchy
 
-![image](https://i.imgur.com/X0Q148F.jpg)
+![image](https://i.imgur.com/KSDyKO7.png)
 
 
 #### ERD Model
 
-![image](https://i.imgur.com/kPUqtBB.jpg)
+![image](https://i.imgur.com/88FBHTo.png)
 
 #### Endpoints
 

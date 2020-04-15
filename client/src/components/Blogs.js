@@ -19,7 +19,7 @@ const Blogs = ({ blogs, username, currentUser, deleteBlog, updateBlog }) => {
 
   return (
     <div className='blogs-container'>
-      <h2>{username || 'Everyone'}'s Blog</h2>
+      <h2>{username || 'The Bicyclist'}'s Blog</h2>
       {display()}
     </div>
   )

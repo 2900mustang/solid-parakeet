@@ -93,8 +93,6 @@ const App = (props) => {
     setBlogForm({ ...blogForm, [name]: value })
   }
 
-  const clearBlogForm = () => setBlogForm({ title: '', text: '' })
-
   const handleBlogCreate = async e => {
     e.preventDefault()
     try {
@@ -175,11 +173,14 @@ const App = (props) => {
     setBrowsingSomeones(true)
   }
 
-  const backToMain = () => setBrowsingSomeones(false)
+  const backToMain = () => {
+    setBrowsingSomeones(false)
+    setBlogForm({ title: '', text: '' })
+  }
 
   return (
     <>
-      <NavBar searchText={search} handleChange={handleSearchChange} handleClick={handleSearch} handleKeyPress={keyPress} currentUser={currentUser} logout={handleLogOut} backToMain={backToMain} clearBlogForm={clearBlogForm} />
+      <NavBar searchText={search} handleChange={handleSearchChange} handleClick={handleSearch} handleKeyPress={keyPress} currentUser={currentUser} logout={handleLogOut} backToMain={backToMain} />
 
       <Switch>
         <Route exact path='/'>

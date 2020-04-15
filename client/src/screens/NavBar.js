@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function NavBar(props) {
-  const { currentUser, searchText, handleChange, handleClick, handleKeyPress, logout, backToMain, clearBlogForm } = props
+  const { currentUser, searchText, handleChange, handleClick, handleKeyPress, logout, backToMain } = props
 
   const [userId, setUserId] = useState(null)
   const classes = useStyles();
@@ -141,7 +141,7 @@ export default function NavBar(props) {
     >
       <Link to="/createBlog">
         <MenuItem>
-          <IconButton onClick={clearBlogForm} aria-label="" color="inherit">
+          <IconButton aria-label="" color="inherit">
             <NoteAddIcon className={classes.noteAddButton} />
           </IconButton>
           <p>Create a Blog</p>
@@ -194,7 +194,7 @@ export default function NavBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Link to="/createBlog">
-              <IconButton onClick={clearBlogForm} aria-label="" color="inherit">
+              <IconButton aria-label="" color="inherit">
                 <NoteAddIcon className={classes.noteAddButton} />
               </IconButton>
             </Link>
