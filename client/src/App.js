@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import './App.css';
 
 import { loginUser, registerUser, verifyUser, updatePassword } from './services/auth-api'
-import { getUser, getAllBlogs, getBlogs, getComments, createBlog, createComment, updateBlog, updateComment, destroyBlog, destroyComment } from './services/blog-api'
+import { getUser, getAllBlogs, getBlogs, createBlog, updateBlog, destroyBlog } from './services/blog-api'
 
 import NavBar from './screens/NavBar'
 import Landing from './screens/Landing'
@@ -55,6 +55,7 @@ const App = (props) => {
   
   const handleLogin = async (e) => {
     e.preventDefault()
+    console.log(changingPassword)
     if (changingPassword) {
       localStorage.removeItem('authToken')
       try {
@@ -64,7 +65,7 @@ const App = (props) => {
         updatingObj.password = authObj.newPassword
         delete updatingObj.newPassword
         if (validUser) {
-          const updated = await updatePassword(updatingObj, validUser.id)
+          await updatePassword(updatingObj, validUser.id)
         }
         setChangingPassword(!changingPassword)
         setAuthObj({ username: '', email: '', password: '', newPassword: '' })
@@ -74,18 +75,15 @@ const App = (props) => {
     } else {
       const currentUser = await loginUser({ username: authObj.username, password: authObj.password })
       setCurrentUser(currentUser)
-      history.push('/blogs')
       setAuthObj({ username: '', email: '', password: '', newPassword: '' })
+      history.push('/blogs')
     }
   }
 
-  const handleLogOut = async () => {
-    try {
-      setCurrentUser(null)
-      await localStorage.removeItem('authToken')
-    } catch (e) {
-      console.error(e.message)
-    }
+  const handleLogOut = () => {
+    setCurrentUser(null)
+    setWhoseBlogs(null)
+    localStorage.removeItem('authToken')
   }
  
   const handleBlogFormChange = e => {
@@ -96,7 +94,7 @@ const App = (props) => {
   const handleBlogCreate = async e => {
     e.preventDefault()
     try {
-      const createdBlog = await createBlog(currentUser.id, blogForm)
+      const createdBlog = await createBlog(currentUser.id, { ...blogForm, user_id: currentUser.id })
       if (createdBlog) {
         history.push('/blogs')
         setAllBlogs(allBlogs.concat(createdBlog))
@@ -184,15 +182,13 @@ const App = (props) => {
 
       <Switch>
         <Route exact path='/'>
-          {/* {currentUser ? <Redirect to='/blogs' /> : <Redirect to='/landing' />} */}
-          {/* <Redirect to={!currentUser ? `/landing` : `/blogs`} /> */}
           <Redirect to='/landing' />
         </Route>
         <Route path='/landing'>
           {!currentUser ? <Landing /> : <Redirect to='/blogs' />}
         </Route>
         <Route path="/blogs">
-          <Blogs blogs={searching ? filteredBlogs : allBlogs} currentUser={currentUser && currentUser.username} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
+          <Blogs blogs={searching ? filteredBlogs : allBlogs} currentUser={currentUser} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
         </Route>
         <Route path='/signup' render={props => (
           <Signup {...props} authObj={authObj} handleChange={handleAuthObjChange} handleSubmit={handleSignup} />
@@ -205,13 +201,13 @@ const App = (props) => {
           <BlogForm {...props} blogForm={blogForm} handleChange={handleBlogFormChange} handleSubmit={handleBlogCreate} />
         )} />
         <Route path='/myblogs/:userId' render={props => (
-          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser.username} user={currentUser} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
+          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser} owner={currentUser} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
         )} />
         <Route exact path='/users/:userId/blogs' render={props => (
-          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser && currentUser.username} user={whoseBlogs} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
+          <BlogsByUser {...props} handleLoad={fetchBlogsByUser} blogs={searching ? filteredBlogs : someonesBlogs} currentUser={currentUser} owner={whoseBlogs} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
         )} />
         <Route path='/users/:userId/blogs/:blogId' render={props => (
-          <FullBlog {...props} />
+          <FullBlog {...props} currentUser={currentUser} />
         )} />
       </Switch>
     </>

@@ -50,18 +50,18 @@ const getComments = async () => {
   return res.data
 }
 
-const createComment = async (obj) => {
-  const res = await api.post('/comments', { comment: obj })
+const createComment = async (id, obj) => {
+  const res = await api.post(`/blogs/${id}/comments`, { comment: obj })
   return res.data
 }
 
-const updateComment = async (id, obj) => {
-  const res = await api.put(`/comments/${id}`, { comment: obj })
+const updateComment = async (blogId, commentId, obj) => {
+  const res = await api.put(`/blogs/${blogId}/comments/${commentId}`, { comment: obj })
   return res.data
 }
 
-const destroyComment = async (id) => {
-  const res = await api.delete(`/comments/${id}`)
+const destroyComment = async (blogId, commentId) => {
+  const res = await api.delete(`/blogs/${blogId}/comments/${commentId}`)
   return res.data
 }
 

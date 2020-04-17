@@ -19,7 +19,7 @@ class BlogsController < ApplicationController
     @user = User.find(params[:user_id])
     @blogs = @user.blogs
 
-    render json: @blogs, include: :user, status: :ok
+    render json: @blogs, include: [:user, :comments], status: :ok
   end
 
   # GET /blogs/1
@@ -29,7 +29,8 @@ class BlogsController < ApplicationController
 
   # POST /blogs
   def create
-    @blog = @current_user.blogs.build(blog_params)
+    # @blog = @current_user.blogs.new(blog_params)
+    @blog = Blog.new(blog_params)
 
     if @blog.save
       render json: @blog, include: [:user, :comments], status: :created, location: @blog
@@ -60,6 +61,6 @@ class BlogsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def blog_params
-      params.require(:blog).permit(:title, :text)
+      params.require(:blog).permit(:title, :text, :user_id)
     end
 end

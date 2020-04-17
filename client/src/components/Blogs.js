@@ -2,7 +2,7 @@ import React from 'react'
 import '../styles/blogs.scss'
 import Blog from './Blog'
 
-const Blogs = ({ blogs, username, currentUser, deleteBlog, updateBlog }) => {
+const Blogs = ({ blogs, owner, currentUser, deleteBlog, updateBlog }) => {
   const displayBlogs = () => blogs.length && blogs.map(blog => {
     const { title, text, created_at, user: { username: author, id: userId }, comments } = blog
 
@@ -19,7 +19,7 @@ const Blogs = ({ blogs, username, currentUser, deleteBlog, updateBlog }) => {
 
   return (
     <div className='blogs-container'>
-      <h2>{username || 'The Bicyclist'}'s Blog</h2>
+      <h2>{(owner && owner.username) || 'The Bicyclist'}'s Blog</h2>
       {display()}
     </div>
   )

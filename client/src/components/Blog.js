@@ -6,7 +6,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import ModalEdit from '../screens/ModalEdit'
 
 const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments, deleteBlog, updateBlog }) => {  
-  // const { commenter, body } = comments
   const [toggle, setToggle] = useState(false)
   const sentence = text.split(' ').slice(0, 21).join(' ')
   const createdDate = date.substring(0, 10)
@@ -25,7 +24,7 @@ const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments
                 <h3 className="blog-title">{title}</h3>
               </Link>
               {
-                currentUser === author &&
+                currentUser.username === author &&
                   <div className='buttons-box'>
                     <EditIcon className='edit-button' onClick={toggleModal} />
                     <DeleteIcon className='delete-button' onClick={() => deleteBlog(`${userId}`, `${blogId}`)} />
