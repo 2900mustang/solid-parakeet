@@ -3,8 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import './App.scss';
 
-import { loginUser, registerUser, verifyUser, updatePassword, removeToken } from './services/auth-api'
-import { getUser, getAllBlogs, getBlogs, createBlog, updateBlog, destroyBlog } from './services/blog-api'
+import { loginUser, registerUser, verifyUser, updatePassword, removeToken, getUser, getAllBlogs, getBlogs, createBlog, updateBlog, destroyBlog } from './services/auth-api'
 
 import NavBar from './screens/NavBar'
 import Landing from './screens/Landing'
@@ -109,9 +108,10 @@ const App = (props) => {
     try {
       const createdBlog = await createBlog(currentUser.id, { ...blogForm, user_id: currentUser.id })
       if (createdBlog) {
-        history.push('/blogs')
+        setSearching(false)
         setAllBlogs(allBlogs.concat(createdBlog))
         setBlogForm({ title: '', text: '' })
+        history.push('/blogs')
       }
     } catch (e) {
       console.error(e.message)
@@ -186,6 +186,7 @@ const App = (props) => {
 
   const backToMain = () => {
     setBrowsingSomeones(false)
+    setSearching(false)
     setBlogForm({ title: '', text: '' })
   }
 

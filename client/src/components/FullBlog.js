@@ -3,7 +3,7 @@ import '../styles/fullBlog.scss'
 import '../styles/comment.scss' 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { getBlog, createComment, updateComment, destroyComment } from '../services/blog-api'
+import { getBlog, createComment, updateComment, destroyComment } from '../services/auth-api'
 
 const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
   const [blog, setBlog] = useState({})
@@ -87,7 +87,7 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
 
   const displayComments = () => {
     return comments.map(comment => {
-      const randomImgId = Math.floor(Math.random() * 70) + 1
+      const randomImgId = Math.floor(Math.random() * 75) + 1
       const { id, commenter, body, created_at } = comment
 
       return (
