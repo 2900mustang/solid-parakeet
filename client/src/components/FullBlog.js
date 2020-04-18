@@ -87,7 +87,7 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
 
   const displayComments = () => {
     return comments.map(comment => {
-      const randomImgId = Math.floor(Math.random() * 75) + 1
+      const randomImgId = Math.floor(Math.random() * 70) + 1
       const { id, commenter, body, created_at } = comment
 
       return (

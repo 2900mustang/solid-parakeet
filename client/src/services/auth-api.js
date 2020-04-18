@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'https://this-turns-into-the-name-of-your-project.herokuapp.com/' : 'http://localhost:3000'
+const baseURL = process.env.NODE_ENV === 'production' ? 'https://calm-depths-12111.herokuapp.com' : 'http://localhost:3000'
 
 const api = axios.create({
   baseURL
