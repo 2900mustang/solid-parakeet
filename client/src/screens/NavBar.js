@@ -74,12 +74,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  },
-  noteAddButton: {
-    color: 'snow',
-    '&:hover': {
-      color: '#2196f3'
-    }
   }
 }));
 
@@ -139,19 +133,18 @@ export default function NavBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <Link to="/createBlog">
+      <Link className='icon-link' to="/createBlog">
         <MenuItem>
           <IconButton aria-label="" color="inherit">
-            <NoteAddIcon className={classes.noteAddButton} />
+            <NoteAddIcon />
           </IconButton>
           <p>Create a Blog</p>
         </MenuItem>
       </Link>
-      <Link to={`/myblogs/${userId}`}>
+      <Link className='icon-link' to={`/myblogs/${userId}`}>
         <MenuItem >
           <IconButton>
-            <AccountCircle>
-            </AccountCircle>
+            <AccountCircle />
           </IconButton>
           <p>My Blogs</p>   
         </MenuItem>
@@ -164,7 +157,7 @@ export default function NavBar(props) {
       <AppBar position="static">
         <Toolbar>
           <IconButton onClick={backToMain}>
-            <Link to='/blogs'>
+            <Link className='icon-link' to='/blogs'>
               <EmojiFoodBeverageIcon />
             </Link>
           </IconButton>
@@ -193,21 +186,19 @@ export default function NavBar(props) {
           </IconButton>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link to="/createBlog">
+            <Link className='icon-link' to="/createBlog">
               <IconButton aria-label="" color="inherit">
-                <NoteAddIcon className={classes.noteAddButton} />
+                <NoteAddIcon />
               </IconButton>
             </Link>
-            <Link to={`/myblogs/${userId}`}>
-              <IconButton className='iconBtn'>
-              < AccountCircle />
-              </IconButton>
-            </Link>
-            <Link onClick={logout} to='/' className='logoutLink'>
+            <Link className='icon-link' to={`/myblogs/${userId}`}>
               <IconButton>
-                <span>Log Out</span>
+                <AccountCircle />
               </IconButton>
             </Link>
+            <IconButton onClick={logout} className='logoutLink'>
+              <span>Logout</span>
+            </IconButton>
           </div>
           <div className={classes.sectionMobile}>
             <IconButton

@@ -1,0 +1,19 @@
+.icon-link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, .8);
+  &:hover {
+    color: #2196f3
+  }
+  p {
+    color: rgba(0, 0, 0, .8);
+  }
+}
+
+.logoutLink span {
+  color: snow;
+  font-weight: 400;
+}
+
+.logoutLink span:hover {
+  color: #DA627D;
+}

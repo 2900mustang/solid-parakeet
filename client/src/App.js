@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router';
-import './App.css';
+import './App.scss';
 
-import { loginUser, registerUser, verifyUser, updatePassword } from './services/auth-api'
+import { loginUser, registerUser, verifyUser, updatePassword, removeToken } from './services/auth-api'
 import { getUser, getAllBlogs, getBlogs, createBlog, updateBlog, destroyBlog } from './services/blog-api'
 
 import NavBar from './screens/NavBar'
@@ -30,16 +30,21 @@ const App = (props) => {
   const [browsingSomeones, setBrowsingSomeones] = useState(false)
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const currentUser = await verifyUser()
-      if (currentUser) {
-        setCurrentUser(currentUser)
+    const loginHook = async () => {
+      const validUser = await verifyUser()
+      if (validUser) {
+        setCurrentUser(validUser)
       }
-      const allBlogs = await getAllBlogs()
-      setAllBlogs(allBlogs)
     }
-    fetchUser()
+    loginHook()
   }, [])
+
+  const blogsHook = () => {
+    getAllBlogs()
+      .then(res => setAllBlogs(res))
+  }
+
+  useEffect(blogsHook, [])
 
   const handleAuthObjChange = e => {
     const { target: { name, value } } = e
@@ -48,14 +53,20 @@ const App = (props) => {
 
   const handleSignup = async (e) => {
     e.preventDefault()
-    const currentUser = await registerUser(authObj)
-    setCurrentUser(currentUser)
-    setAuthObj({ username: '', email: '', password: '', newPassword: '' })
+    try {
+      const validUser = await registerUser(authObj)
+      if (validUser) {
+        setCurrentUser(validUser)
+      }
+      setAuthObj({ username: '', email: '', password: '', newPassword: '' })
+      history.push('/blogs')
+    } catch (e) {
+      console.error(e.message)
+    }
   }
   
   const handleLogin = async (e) => {
     e.preventDefault()
-    console.log(changingPassword)
     if (changingPassword) {
       localStorage.removeItem('authToken')
       try {
@@ -73,17 +84,19 @@ const App = (props) => {
         console.error(e.message)
       }
     } else {
-      const currentUser = await loginUser({ username: authObj.username, password: authObj.password })
-      setCurrentUser(currentUser)
+      const validUser = await loginUser({ username: authObj.username, password: authObj.password })
+      setCurrentUser(validUser)
       setAuthObj({ username: '', email: '', password: '', newPassword: '' })
       history.push('/blogs')
     }
   }
 
   const handleLogOut = () => {
+    localStorage.removeItem('authToken')
+    removeToken()
     setCurrentUser(null)
     setWhoseBlogs(null)
-    localStorage.removeItem('authToken')
+    history.push('/')
   }
  
   const handleBlogFormChange = e => {
@@ -190,6 +203,7 @@ const App = (props) => {
         <Route path="/blogs">
           <Blogs blogs={searching ? filteredBlogs : allBlogs} currentUser={currentUser} deleteBlog={handleBlogDelete} updateBlog={handleBlogUpdate} />
         </Route>
+
         <Route path='/signup' render={props => (
           <Signup {...props} authObj={authObj} handleChange={handleAuthObjChange} handleSubmit={handleSignup} />
         )} />

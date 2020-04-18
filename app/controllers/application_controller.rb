@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
   end  
 
   def authorize_request
-    header = request.headers['authorization']
+    header = request.headers['Authorization']
     header = header.split(' ').last if header
     begin
       @decoded = decode(header)

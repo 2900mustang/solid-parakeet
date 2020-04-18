@@ -24,14 +24,14 @@ const Blog = ({ userId, blogId, title, text, date, author, currentUser, comments
                 <h3 className="blog-title">{title}</h3>
               </Link>
               {
-                currentUser.username === author &&
+                (currentUser && currentUser.username) === author &&
                   <div className='buttons-box'>
                     <EditIcon className='edit-button' onClick={toggleModal} />
                     <DeleteIcon className='delete-button' onClick={() => deleteBlog(`${userId}`, `${blogId}`)} />
                   </div> 
               }
             </div>
-            <p className="blog-description">{sentence}...</p>
+            <p className="blog-description">{sentence.split(' ').length >= 20 ? `${sentence}...` : sentence}</p>
             <div className='bottom-border'>
               <Link to={`/users/${userId}/blogs`}>
                 <p className="blog-author">{author}</p>

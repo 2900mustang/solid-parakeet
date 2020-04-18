@@ -19,6 +19,12 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
     return
   }, [currentUser])
   
+  const fetchBlog = async () => {
+    const blog = await getBlog(userId, blogId)
+    setBlog(blog)
+    setComments(blog.comments)
+  }
+
   const handleChange = e => {
     const { target: { name, value } } = e
     setComment({ ...comment, [name]: value })
@@ -60,12 +66,6 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
     }
   }
 
-  const fetchBlog = async () => {
-    const blog = await getBlog(userId, blogId)
-    setBlog(blog)
-    setComments(blog.comments)
-  }
-
   const displayBlog = () => {
     const randomImgID = Math.floor(Math.random() * 1084) + 1
 
@@ -93,7 +93,7 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
       return (
         <div className='comment' key={id}>
           <img src={`https://i.pravatar.cc/300?img=${randomImgId}`} className='commentPic' alt='' />
-          <div className='commentBody'>
+          <div>
             <div className='commentHeader'>
               <div className='commenter'>{commenter}</div>
               <div className='comment-date'>{created_at.substring(0, 10)}</div>
@@ -105,7 +105,7 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
               </div> 
             }
             </div>
-            <span className='comment-content'>{body}</span>
+            <span>{body}</span>
           </div>
         </div>
       )
@@ -116,25 +116,25 @@ const FullBlog = ({ currentUser, match: { params: { userId, blogId } } }) => {
     <div className='blog-container'>
       {displayBlog()}
       <div className='comments-box'>
-      <div className='form-container'>
-        <form className='comment-form'>
-          <label htmlFor="comment">Your Comment</label>
-          <textarea 
-            className='text-area'
-            id="comment"
-            type="text" 
-            placeholder="Comment"
-            name='body'
-            value={comment.body}
-            onChange={handleChange}
-            required/>
-          { !currentCommentId && <button className='comment-btn' onClick={postComment}>Post</button> }
-          { currentCommentId && <>
-            <button className='comment-btn' onClick={handleUpdate} >Update</button> 
-            <button className='comment-btn' onClick={() => { setComment({...comment, body: ''}); setCurrentCommentId(null)} }>Cancel</button> 
-          </> }
-        </form>        
-      </div>
+        <div className='form-container'>
+          <form className='comment-form'>
+            <label htmlFor="comment">Your Comment</label>
+            <textarea 
+              className='text-area'
+              id="comment"
+              type="text" 
+              placeholder="Comment"
+              name='body'
+              value={comment.body}
+              onChange={handleChange}
+              required/>
+            { !currentCommentId && <button className='comment-btn' onClick={postComment}>Post</button> }
+            { currentCommentId && <div className='buttons-box'>
+              <button className='comment-btn' onClick={handleUpdate} >Update</button> 
+              <button className='comment-btn' onClick={() => { setComment({...comment, body: ''}); setCurrentCommentId(null)} }>Cancel</button> 
+            </div> }
+          </form>        
+        </div>
         {displayComments()}
       </div>
     </div>

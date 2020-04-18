@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :update, :destroy]
-  before_action :authorize_request, except: [:all_blogs, :index, :show, :index_by_user]
+  before_action :authorize_request, except: [:all_blogs, :index, :show, :index_by_user, :create, :update, :destroy]
 
   # GET /blogs
   def all_blogs

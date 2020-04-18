@@ -14,7 +14,8 @@ const ModalEdit = ({ userId, blogId, title, text, handleSubmit, toggle, toggleMo
     setBlogForm({ ...blogForm, [name]: value })
   }
 
-  const update = () => {
+  const update = (e) => {
+    e.preventDefault()
     toggleModal()
     handleSubmit(userId, blogId, blogForm)
   }
@@ -22,13 +23,15 @@ const ModalEdit = ({ userId, blogId, title, text, handleSubmit, toggle, toggleMo
   return (
     <div className={`modal-bg ${toggle ? 'bg-active' : ''}`}>
       <div className='modal'>
-        <h2>Edit Me</h2>
-        <label htmlFor='name'>Title: </label>
-        <input type='text' name='title' className='input-text' value={blogForm.title} onChange={handleChange} />
-        <label className='labels' htmlFor='bio'>Body Text</label>
-        <textarea className='text-area' rows='5' placeholder='Tell me about your cheesy moments.' name='text' value={blogForm.text} onChange={handleChange}></textarea>
-        <CloseIcon onClick={toggleModal} className="modal-close" />
-        <button onClick={update}>Update</button>
+        <h2>Editing</h2>
+        <form onSubmit={update}>
+          <label htmlFor='name'>Title: </label>
+          <input type='text' name='title' className='input-text' value={blogForm.title} onChange={handleChange} required />
+          <label htmlFor='bio'>Body Text:</label>
+          <textarea rows='5' placeholder='Tell me about your biking moments.' name='text' value={blogForm.text} onChange={handleChange} required></textarea>
+          <CloseIcon onClick={toggleModal} className="modal-close" />
+          <input className='modal-submit' type='submit' value='UPDATE' />
+        </form>
       </div>
     </div>
   )

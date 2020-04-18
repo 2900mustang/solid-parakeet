@@ -30,7 +30,7 @@ export default function Landing() {
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography variant="h1" component="h1" align="center" color="textPrimary" gutterBottom>
-              Strangers' Bloggies.
+              I lost my bicycle.
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Write yourself a blog.
